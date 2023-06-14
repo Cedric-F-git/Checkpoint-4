@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./style/index.scss";
 import "./App.css";
 
+import Character from "./pages/Character";
 import Home from "./pages/Home";
 import Login from "./components/login/Login";
 import Navbar from "./components/navbar/Navbar";
@@ -23,6 +24,7 @@ function App() {
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/character/:id" element={<Character />} />
             </Routes>
           </div>
         ) : (

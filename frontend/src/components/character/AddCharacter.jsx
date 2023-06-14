@@ -81,11 +81,11 @@ function AddCharacter() {
             onChange={(e) => setClassChar(e.target.value)}
           >
             <option value="">--Choisir une classe--</option>
-            <option value="2">Guerrier</option>
-            <option value="3">Chasseur</option>
-            <option value="4">Voleur</option>
-            <option value="5">Mage</option>
-            <option value="6">Druide</option>
+            <option value="Guerrier">Guerrier</option>
+            <option value="Chasseur">Chasseur</option>
+            <option value="Voleur">Voleur</option>
+            <option value="Mage">Mage</option>
+            <option value="Druide">Druide</option>
           </select>
         </label>
         <label htmlFor="species" className="label-add-character">
@@ -96,10 +96,10 @@ function AddCharacter() {
             onChange={(e) => setSpecies(e.target.value)}
           >
             <option value="">--Choisir une espèce--</option>
-            <option value="2">Humain</option>
-            <option value="3">Elfe</option>
-            <option value="4">Nain</option>
-            <option value="5">Halfelin</option>
+            <option value="Humain">Humain</option>
+            <option value="Elfe">Elfe</option>
+            <option value="Nain">Nain</option>
+            <option value="Halfelin">Halfelin</option>
           </select>
         </label>
         <label htmlFor="label-add-character" className="label-add-character">

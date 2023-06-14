@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import useApi from "../../services/useApi";
 import AddCharacter from "./AddCharacter";
 
@@ -33,9 +34,14 @@ function Character() {
         <AddCharacter />
       ) : (
         allCharacter.map((item) => (
-          <button type="button" key={item.id}>
-            {item.name}
-          </button>
+          <Link
+            className="idea-list-content__link"
+            to={`/character/${item.id}`}
+          >
+            <button type="button" key={item.id}>
+              {item.name}
+            </button>
+          </Link>
         ))
       )}
     </div>
