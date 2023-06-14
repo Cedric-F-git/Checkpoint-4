@@ -34,6 +34,11 @@ const UserManager = require("./UserManager");
 models.user = new UserManager();
 models.user.setDatabase(pool);
 
+const CharacterManager = require("./CharacterManager");
+
+models.character = new CharacterManager();
+models.character.setDatabase(pool);
+
 const ItemManager = require("./ItemManager");
 
 models.item = new ItemManager();

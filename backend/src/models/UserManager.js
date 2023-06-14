@@ -15,14 +15,14 @@ class UserManager extends AbstractManager {
     );
   }
 
-  update(pseudo, email, usergroupId) {
+  update(id, pseudo, email, usergroupId) {
     return this.database.query(
       `UPDATE ${this.table} SET 
       pseudo = ?,
       email = ?,
       usergroupId = ?
       WHERE id = ?`,
-      [pseudo, email, usergroupId]
+      [pseudo, email, usergroupId, id]
     );
   }
 
@@ -31,6 +31,14 @@ class UserManager extends AbstractManager {
       `SELECT user.id, pseudo, email, hashedPassword, usergroupId FROM ${this.table} 
       WHERE email = ? `,
       [email]
+    );
+  }
+
+  delete(id) {
+    return this.database.query(
+      `DELETE FROM ${this.table} 
+      WHERE id = ?`,
+      [id]
     );
   }
 

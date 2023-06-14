@@ -10,7 +10,12 @@ const validate = (data, forCreation = true) => {
       pseudo: joi.string().max(45).presence(presence),
       email: joi.string().max(45).presence(presence),
       hashedPassword: joi.string().max(255).presence(presence),
-      usergroupId: joi.number().integer().presence("optional"),
+      usergroupId: joi
+        .number()
+        .integer()
+        .presence("optional")
+        .allow(null)
+        .allow(""),
     })
     .validate(data, { abortEarly: false }).error;
 };
@@ -98,13 +103,15 @@ const add = (req, res) => {
 };
 
 const destroy = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
   models.user
-    .delete(req.params.id)
+    .delete(id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
       } else {
-        res.sendStatus(204);
+        res.send("User Delete").status(204);
       }
     })
     .catch((err) => {
