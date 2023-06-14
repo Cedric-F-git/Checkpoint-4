@@ -168,7 +168,6 @@ const add = (req, res) => {
     inventoryId,
     characterGroupId,
   };
-  // console.log(data);
 
   const errors = validate(data);
   if (errors) return res.sendStatus(422);
