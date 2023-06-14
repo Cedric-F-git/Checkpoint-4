@@ -22,12 +22,12 @@ const validate = (data, forCreation = true) => {
 
 // eslint-disable-next-line consistent-return
 const browse = (req, res) => {
-  const companyId = parseInt(req.params.id, 10);
-  if (companyId === req.payload.sub) {
+  const id = parseInt(req.params.id, 10);
+  if (id === req.payload.sub) {
     return res.status(201);
   }
   models.user
-    .findAll(companyId)
+    .findAll(id)
     .then(([rows]) => {
       res.send(rows);
     })
