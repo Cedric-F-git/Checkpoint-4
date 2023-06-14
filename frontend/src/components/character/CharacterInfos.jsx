@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useApi from "../../services/useApi";
+import EditCharacter from "./EditCharacter";
 
 function CharacterInfos() {
   const api = useApi();
   const { id } = useParams();
   const [characterDetail, setCharacterDetail] = useState({});
+  const [editing, setEditing] = useState(false);
   const [inventoryDetail, setInventoryDetail] = useState({});
 
   useEffect(() => {
@@ -23,9 +25,31 @@ function CharacterInfos() {
       });
   }, []);
 
+  const handleEditCharacterClick = () => {
+    setEditing(true);
+  };
+
+  if (editing) {
+    return (
+      <EditCharacter
+        characterDetail={characterDetail}
+        setCharacterDetail={setCharacterDetail}
+        setEditing={setEditing}
+      />
+    );
+  }
+
   return (
     <section className="character-section">
       <h1 className="character-name">{characterDetail.name}</h1>
+
+      <button
+        className="edit-character"
+        type="button"
+        onClick={handleEditCharacterClick}
+      >
+        Modifier
+      </button>
 
       <aside className="story-container">
         <h5 className="story-title">Histoire :</h5>

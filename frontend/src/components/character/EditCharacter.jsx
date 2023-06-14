@@ -1,44 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import useApi from "../../services/useApi";
 
-function AddCharacter({ handleCharacterAdded }) {
+function EditCharacter({ characterDetail, setCharacterDetail, setEditing }) {
   const api = useApi();
 
-  const [inventory, setInventory] = useState([]);
+  const [characterId] = useState(characterDetail.id);
+  const [story, setStory] = useState(characterDetail.story);
+  const [classeChar, setClassChar] = useState(characterDetail.classe);
+  const [species, setSpecies] = useState(characterDetail.species);
+  const [lifepoint, setLifepoint] = useState(characterDetail.lifepoint);
+  const [stamina, setStamina] = useState(characterDetail.stamina);
+  const [hope, setHope] = useState(characterDetail.hope);
+  const [money, setMoney] = useState(characterDetail.money);
+  const [physical, setPhysical] = useState(characterDetail.physical);
+  const [social, setSocial] = useState(characterDetail.social);
+  const [intelligence, setIntelligence] = useState(
+    characterDetail.intelligence
+  );
+  const [weapon, setWeapon] = useState(characterDetail.weapon);
+  const [armor, setArmor] = useState(characterDetail.armor);
 
-  const [nameChar, setNameChar] = useState("");
-  const [classeChar, setClassChar] = useState("");
-  const [species, setSpecies] = useState("");
-  const [lifepoint, setLifepoint] = useState(0);
-  const [stamina, setStamina] = useState(0);
-  const [hope, setHope] = useState(0);
-  const [money, setMoney] = useState(0);
-  const [physical, setPhysical] = useState(0);
-  const [social, setSocial] = useState(0);
-  const [intelligence, setIntelligence] = useState(0);
-  const [weapon, setWeapon] = useState("");
-  const [armor, setArmor] = useState("");
-  const [story, setStory] = useState("");
-  const [characterUserId] = useState(1);
-  const [inventoryId, setInventoryId] = useState("");
-  const [characterGroupId] = useState(1);
-
-  useEffect(() => {
-    api
-      .get("/inventory")
-      .then((resp) => {
-        setInventory(resp.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
-
-  const handleSubmitNewCharacter = (e) => {
+  const handleUpdateCharacter = (e) => {
     e.preventDefault();
-    const newCharacter = {
-      name: nameChar,
+
+    const updatedCharacter = {
+      ...characterDetail,
+      story,
       classe: classeChar,
       species,
       lifepoint,
@@ -50,15 +38,13 @@ function AddCharacter({ handleCharacterAdded }) {
       intelligence,
       weapon,
       armor,
-      story,
-      characterUserId,
-      inventoryId,
-      characterGroupId,
     };
+
     api
-      .post(`/character`, newCharacter)
+      .put(`/character/${characterId}`, updatedCharacter)
       .then(() => {
-        handleCharacterAdded(newCharacter);
+        setCharacterDetail(updatedCharacter);
+        setEditing(false);
       })
       .catch((err) => {
         console.error(err);
@@ -66,16 +52,13 @@ function AddCharacter({ handleCharacterAdded }) {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmitNewCharacter} className="form-add-character">
-        <label htmlFor="label-add-character" className="label-add-character">
-          Nom :
-          <input
-            type="text"
-            value={nameChar}
-            onChange={(e) => setNameChar(e.target.value)}
-          />
-        </label>
+    <section className="edit-form-character">
+      <h1>Modifier {characterDetail.name}</h1>
+      <form
+        htmlFor="classe-character"
+        className="form-add-character"
+        onSubmit={handleUpdateCharacter}
+      >
         <label htmlFor="classe-character" className="label-add-character">
           Classe :
           <select
@@ -195,29 +178,16 @@ function AddCharacter({ handleCharacterAdded }) {
             onChange={(e) => setStory(e.target.value)}
           />
         </label>{" "}
-        <label htmlFor="inventory" className="label-add-character">
-          Inventaire :
-          <select
-            className="species"
-            value={inventoryId}
-            onChange={(e) => setInventoryId(e.target.value)}
-          >
-            <option value="">--Choisir un inventaire--</option>
-            {inventory.map((option) => (
-              <option key={option.id} value={option.id}>
-                Choix : {option.id}
-              </option>
-            ))}
-          </select>
-        </label>
-        <button type="submit">Ajouter</button>
+        <button type="submit">Modifier</button>
       </form>
-    </div>
+    </section>
   );
 }
 
-AddCharacter.propTypes = {
-  handleCharacterAdded: PropTypes.func.isRequired,
+EditCharacter.propTypes = {
+  characterDetail: PropTypes.func.isRequired,
+  setCharacterDetail: PropTypes.func.isRequired,
+  setEditing: PropTypes.bool.isRequired,
 };
 
-export default AddCharacter;
+export default EditCharacter;

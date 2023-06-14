@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useApi from "../../services/useApi";
 import AddCharacter from "./AddCharacter";
 
-function Character() {
+function CharacterList() {
   const api = useApi();
 
   const [allCharacter, setAllCharacter] = useState([]);
@@ -24,6 +24,24 @@ function Character() {
     setShowAddCharacter(!showAddCharacter);
   };
 
+  const handleCharacterAdded = (newCharacter) => {
+    setAllCharacter([...allCharacter, newCharacter]);
+    setShowAddCharacter(false);
+  };
+
+  const handleDeleteCharacter = (characterId) => {
+    api
+      .delete(`/character/${characterId}`)
+      .then(() => {
+        setAllCharacter(
+          allCharacter.filter((character) => character.id !== characterId)
+        );
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <div>
       <h2 className="my-character">Mes personnages</h2>
@@ -31,21 +49,28 @@ function Character() {
         Nouveau personnage
       </button>
       {showAddCharacter ? (
-        <AddCharacter />
+        <AddCharacter handleCharacterAdded={handleCharacterAdded} />
       ) : (
         allCharacter.map((item) => (
-          <Link
-            className="idea-list-content__link"
-            to={`/character/${item.id}`}
-          >
-            <button type="button" key={item.id}>
-              {item.name}
+          <div key={item.id}>
+            <Link
+              className="idea-list-content__link"
+              to={`/character/${item.id}`}
+            >
+              <button type="button">{item.name}</button>
+            </Link>
+            <button
+              type="button"
+              className="delete-character"
+              onClick={() => handleDeleteCharacter(item.id)}
+            >
+              X
             </button>
-          </Link>
+          </div>
         ))
       )}
     </div>
   );
 }
 
-export default Character;
+export default CharacterList;
