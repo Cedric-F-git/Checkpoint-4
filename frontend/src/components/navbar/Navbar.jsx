@@ -1,7 +1,12 @@
+import { Link } from "react-router-dom";
 import React from "react";
 
 function Navbar() {
-  return <section className="navbar-container">coucou</section>;
+  return (
+    <nav className="navbar-container">
+      <Link to="/">Profil</Link>
+    </nav>
+  );
 }
 
 export default Navbar;

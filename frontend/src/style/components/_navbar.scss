@@ -1,6 +1,16 @@
 .navbar-container {
-  height: 20px;
+  height: 50px;
   width: 100%;
   background-color: var(--main-color);
   color: var(--color);
+  a {
+    font-size: 1.5rem;
+    margin: 0 1rem;
+    color: var(--text-color-light);
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 23px;
+  }
 }

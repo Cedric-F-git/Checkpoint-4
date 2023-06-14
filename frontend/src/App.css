@@ -12,3 +12,7 @@
   --second-color: #3c3226;
   --color: #dfe0df;
 }
+
+body {
+  background-color: var(--background-color);
+}

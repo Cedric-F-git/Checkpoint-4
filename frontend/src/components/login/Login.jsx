@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useUser } from "../../contexts/UserContext";
 import useApi from "../../services/useApi";
@@ -29,7 +29,8 @@ function Login({ handleLogin }) {
         api.defaults.headers.authorization = `Bearer ${token}`;
         setUser(resp.data.user);
         handleLogin();
-        navigate(`/register/${resp.data.user.companyId}`);
+        // navigate(`/${resp.data.user}`);
+        navigate("/");
       })
       .catch((err) => {
         console.warn(err);
@@ -77,9 +78,7 @@ function Login({ handleLogin }) {
             Mot de passe :
             <input type="password" className="inputLoginForm" ref={refPass} />
           </label>
-          <div>
-            <Link to="/resetPassword">Mot de passe oublié?</Link>
-          </div>
+
           <button type="submit">Connexion</button>
         </form>
       </div>

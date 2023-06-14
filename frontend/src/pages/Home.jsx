@@ -1,9 +1,9 @@
-import Navbar from "../components/navbar/Navbar";
+import CharacterList from "../components/character/CharacterList";
 
 export default function Home() {
   return (
     <header className="App-header">
-      <Navbar />
+      <CharacterList />
     </header>
   );
 }
