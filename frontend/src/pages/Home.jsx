@@ -8,8 +8,10 @@ export default function Home() {
   return (
     <main className="main-home-container">
       <h1 className="hello-user">Bonjour {user.pseudo}</h1>
-      <CharacterList />
-      <GroupList />
+      <div className="home-list-container">
+        <CharacterList />
+        <GroupList />
+      </div>
     </main>
   );
 }

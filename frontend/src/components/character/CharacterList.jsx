@@ -45,25 +45,31 @@ function CharacterList() {
   };
 
   return (
-    <div>
+    <div className="list-container">
       <h2 className="my-character">Mes personnages</h2>
-      <button type="button" onClick={handleNewCharacterClick}>
+      <button
+        className="add-btn-new"
+        type="button"
+        onClick={handleNewCharacterClick}
+      >
         Nouveau personnage
       </button>
       {showAddCharacter ? (
         <AddCharacter handleCharacterAdded={handleCharacterAdded} />
       ) : (
         allCharacter.map((item) => (
-          <div key={item.id}>
+          <div className="item-container" key={item.id}>
             <Link
-              className="idea-list-content__link"
+              className="idea-list-content-link"
               to={`/character/${item.id}`}
             >
-              <button type="button">{item.name}</button>
+              <button className="btn-item-name" type="button">
+                {item.name}
+              </button>
             </Link>
             <button
               type="button"
-              className="delete-character"
+              className="delete-btn"
               onClick={() => handleDeleteCharacter(item.id)}
             >
               X

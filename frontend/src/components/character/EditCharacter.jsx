@@ -53,10 +53,10 @@ function EditCharacter({ characterDetail, setCharacterDetail, setEditing }) {
 
   return (
     <section className="edit-form-character">
-      <h1>Modifier {characterDetail.name}</h1>
+      <h2 className="character-name">Modifier {characterDetail.name}</h2>
       <form
         htmlFor="classe-character"
-        className="form-add-character"
+        className="form-add"
         onSubmit={handleUpdateCharacter}
       >
         <label htmlFor="classe-character" className="label-add-character">

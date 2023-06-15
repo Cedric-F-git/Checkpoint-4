@@ -108,44 +108,50 @@ function CharacterListGroup() {
   };
 
   return (
-    <div>
-      <select className="list-group" onChange={handleCharacterSelect}>
-        <option value="">--Choisir un personnage--</option>
-        {availableCharacters.map((option) => (
-          <option key={option.id} value={option.id}>
-            {option.name}
-          </option>
-        ))}
-      </select>
-      <button type="button" onClick={handleAddCharacterInGroup}>
-        Ajouter
-      </button>
+    <section className="group-section-container">
+      <div className="div-group-list">
+        <select className="list-group" onChange={handleCharacterSelect}>
+          <option value="">Choisir un personnage</option>
+          {availableCharacters.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option.name}
+            </option>
+          ))}
+        </select>
+        <button
+          type="button"
+          className="btn-item-name"
+          onClick={handleAddCharacterInGroup}
+        >
+          Ajouter
+        </button>
 
-      <div className="list-group-character">
-        {groupCharacters.map((item) => (
-          <div key={item.id}>
-            <button
-              type="button"
-              className="list-group-character-btn"
-              onClick={() => handleShowCharacterInfos(item)}
-            >
-              {item.name}
-            </button>
-            <button
-              type="button"
-              className="delete-character"
-              onClick={() => handleRemoveCharacterFromGroup(item.id)}
-            >
-              X
-            </button>
-          </div>
-        ))}
+        <div className="list-group-character">
+          {groupCharacters.map((item) => (
+            <div key={item.id}>
+              <button
+                type="button"
+                className="btn-item-name-group"
+                onClick={() => handleShowCharacterInfos(item)}
+              >
+                {item.name}
+              </button>
+              <button
+                type="button"
+                className="delete-btn"
+                onClick={() => handleRemoveCharacterFromGroup(item.id)}
+              >
+                X
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
 
       {showCharacterInfos && (
         <CharacterInfosGroup selectedCharacter={selectedCharacter} />
       )}
-    </div>
+    </section>
   );
 }
 

@@ -25,8 +25,8 @@ function AddGroup({ handleGroupAdded }) {
 
   return (
     <div>
-      <form onSubmit={handleSubmitNewGroup} className="add-add-group">
-        <label htmlFor="label-add-group" className="add-add-group">
+      <form onSubmit={handleSubmitNewGroup} className="form-add">
+        <label htmlFor="label-form-add" className="label-add-character">
           Nom :
           <input
             type="text"

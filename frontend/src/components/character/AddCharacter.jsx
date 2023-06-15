@@ -68,9 +68,9 @@ function AddCharacter({ handleCharacterAdded }) {
 
   return (
     <div>
-      <form onSubmit={handleSubmitNewCharacter} className="form-add-character">
+      <form onSubmit={handleSubmitNewCharacter} className="form-add">
         <label htmlFor="label-add-character" className="label-add-character">
-          Nom :
+          Nom :{" "}
           <input
             type="text"
             value={nameChar}
@@ -78,7 +78,7 @@ function AddCharacter({ handleCharacterAdded }) {
           />
         </label>
         <label htmlFor="classe-character" className="label-add-character">
-          Classe :
+          Classe :{" "}
           <select
             className="classe-character"
             value={classeChar}
@@ -93,7 +93,7 @@ function AddCharacter({ handleCharacterAdded }) {
           </select>
         </label>
         <label htmlFor="species" className="label-add-character">
-          Espèce :
+          Espèce :{" "}
           <select
             className="species"
             value={species}
@@ -107,7 +107,7 @@ function AddCharacter({ handleCharacterAdded }) {
           </select>
         </label>
         <label htmlFor="label-add-character" className="label-add-character">
-          Points de Vie :
+          Points de Vie :{" "}
           <input
             className="life-point"
             type="number"
@@ -116,7 +116,7 @@ function AddCharacter({ handleCharacterAdded }) {
           />
         </label>
         <label htmlFor="label-add-character" className="label-add-character">
-          Endurance :
+          Endurance :{" "}
           <input
             className="stamina"
             type="number"
@@ -125,7 +125,7 @@ function AddCharacter({ handleCharacterAdded }) {
           />
         </label>
         <label htmlFor="label-add-character" className="label-add-character">
-          Espoir :
+          Espoir :{" "}
           <input
             className="hope"
             type="number"
@@ -134,7 +134,7 @@ function AddCharacter({ handleCharacterAdded }) {
           />
         </label>
         <label htmlFor="label-add-character" className="label-add-character">
-          Couronnes :
+          Couronnes :{" "}
           <input
             className="money"
             type="number"
@@ -143,7 +143,7 @@ function AddCharacter({ handleCharacterAdded }) {
           />
         </label>
         <label htmlFor="label-add-character" className="label-add-character">
-          Physique :
+          Physique :{" "}
           <input
             className="physical"
             type="number"
@@ -152,7 +152,7 @@ function AddCharacter({ handleCharacterAdded }) {
           />
         </label>
         <label htmlFor="label-add-character" className="label-add-character">
-          Social :
+          Social :{" "}
           <input
             className="social"
             type="number"
@@ -161,7 +161,7 @@ function AddCharacter({ handleCharacterAdded }) {
           />
         </label>{" "}
         <label htmlFor="label-add-character" className="label-add-character">
-          Intelligence :
+          Intelligence :{" "}
           <input
             className="intelligence"
             type="number"
@@ -170,7 +170,7 @@ function AddCharacter({ handleCharacterAdded }) {
           />
         </label>{" "}
         <label htmlFor="label-add-character" className="label-add-character">
-          Arme :
+          Arme :{" "}
           <input
             className="weapon"
             type="text"
@@ -179,7 +179,7 @@ function AddCharacter({ handleCharacterAdded }) {
           />
         </label>{" "}
         <label htmlFor="label-add-character" className="label-add-character">
-          Armure :
+          Armure :{" "}
           <input
             className="armor"
             type="text"
@@ -188,7 +188,7 @@ function AddCharacter({ handleCharacterAdded }) {
           />
         </label>{" "}
         <label htmlFor="label-add-character" className="label-add-character">
-          Histoire :
+          Histoire :{" "}
           <input
             className="story"
             type="text"
@@ -197,7 +197,7 @@ function AddCharacter({ handleCharacterAdded }) {
           />
         </label>{" "}
         <label htmlFor="inventory" className="label-add-character">
-          Inventaire :
+          Inventaire :{" "}
           <select
             className="species"
             value={inventoryId}

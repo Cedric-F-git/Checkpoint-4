@@ -31,7 +31,6 @@ function Login({ handleLogin }) {
         api.defaults.headers.authorization = `Bearer ${token}`;
         setUser(resp.data.user);
         handleLogin();
-        // navigate(`/${resp.data.user}`);
         navigate("/");
       })
       .catch((err) => {
@@ -92,7 +91,9 @@ function Login({ handleLogin }) {
               Mot de passe:
               <input type="password" className="inputLoginForm" ref={refPass} />
             </label>
-            <button type="submit">Connexion</button>
+            <button type="submit" className="add-user-btn">
+              Connexion
+            </button>
           </form>
         )}
         {!showCreateAccount && (

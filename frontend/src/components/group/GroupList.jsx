@@ -41,26 +41,32 @@ function GroupList() {
   };
 
   return (
-    <div>
+    <div className="list-container">
       <h2 className="my-character">Groupe d'aventuriers</h2>
-      <button type="button" onClick={handleNewGroupClick}>
+      <button
+        className="add-btn-new"
+        type="button"
+        onClick={handleNewGroupClick}
+      >
         Nouveau groupe
       </button>
       {showAddGroup ? (
         <AddGroup handleGroupAdded={handleGroupAdded} />
       ) : (
         allGroup.map((item) => (
-          <div key={item.id}>
+          <div className="item-container" key={item.id}>
             <Link
-              className="group-list-content__link"
+              className="group-list-content-link"
               to={`/group/${item.id}`}
               state={{ selectedGroupId: item.id, selectedName: item.name }}
             >
-              <button type="button">{item.name}</button>
+              <button className="btn-item-name" type="button">
+                {item.name}
+              </button>
             </Link>
             <button
               type="button"
-              className="delete-group"
+              className="delete-btn"
               onClick={() => handleDeleteGroup(item.id)}
             >
               X

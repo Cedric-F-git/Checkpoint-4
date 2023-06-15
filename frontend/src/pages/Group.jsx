@@ -7,7 +7,7 @@ function Group() {
 
   return (
     <div>
-      <h1 className="group-title-name">{state.selectedName}</h1>
+      <h1 className="character-name">{state.selectedName}</h1>
       <CharacterListGroup />
     </div>
   );

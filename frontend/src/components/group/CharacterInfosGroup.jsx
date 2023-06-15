@@ -21,7 +21,7 @@ function CharacterInfosGroup({ selectedCharacter }) {
   }, [selectedCharacter.inventoryId]);
 
   return (
-    <div>
+    <section className="character-group-section">
       <h2 className="group-character-name">{selectedCharacter.name}</h2>
       <section className="group-section-infos">
         <article className="group-character-infos">
@@ -46,38 +46,40 @@ function CharacterInfosGroup({ selectedCharacter }) {
         </article>
 
         <article className="group-character-equipment">
-          <h3 className="equipment-title">
+          <h4 className="equipment-title">
             Arme : <p className="equipment-p">{selectedCharacter.weapon}</p>
-          </h3>
-          <h3 className="equipment-title">
+          </h4>
+          <h4 className="equipment-title">
             Armure : <p className="equipment-p">{selectedCharacter.armor}</p>
-          </h3>
+          </h4>
         </article>
 
         <article className="group-character-skills">
           <div className="skills-container">
-            <h3 className="skills-title">Physique :</h3>
+            <h4 className="skills-title" id="physical">
+              Physique :
+            </h4>
             <p className="skills-number">{selectedCharacter.physical}</p>
           </div>
-          <div className="skills-container">
-            <h3 className="skills-title">Social :</h3>
+          <div className="skills-container" id="social">
+            <h4 className="skills-title">Social :</h4>
             <p className="skills-number">{selectedCharacter.social}</p>
           </div>
-          <div className="skills-container">
-            <h3 className="skills-title">Intelligence :</h3>
+          <div className="skills-container" id="intelligence">
+            <h4 className="skills-title">Intelligence :</h4>
             <p className="skills-number">{selectedCharacter.intelligence}</p>
           </div>
         </article>
 
         <article className="group-character-inventory">
-          <h3 className="inventory-title">Inventaire :</h3>
+          <h4 className="inventory-title">Inventaire :</h4>
           <p className="inventory-p">Potion : {inventoryDetail.potion}</p>
           <p className="inventory-p">Ration : {inventoryDetail.ration}</p>
           <p className="inventory-p">Bandage : {inventoryDetail.bandage}</p>
           <p className="inventory-p">Torche : {inventoryDetail.torch}</p>
         </article>
       </section>
-    </div>
+    </section>
   );
 }
 

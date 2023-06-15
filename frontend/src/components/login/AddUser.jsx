@@ -75,9 +75,9 @@ function AddUser({ refEmail, refPass, setShowCreateAccount }) {
             onChange={(e) => setPass1(e.target.value)}
           />
         </label>
-        <span className={validPwd || !pass1 ? "signup-hide" : "signup-invalid"}>
-          Mot de passe invalide
-        </span>
+        {!validPwd && pass1 && (
+          <span className="signup-invalid">Mot de passe invalide</span>
+        )}
         <label htmlFor="confirm-password" className="loginLabel">
           Confirmer le mot de passe:
           <input
@@ -87,13 +87,15 @@ function AddUser({ refEmail, refPass, setShowCreateAccount }) {
             onChange={(e) => setPass2(e.target.value)}
           />
         </label>
-        <span
-          className={validMatch || !pass2 ? "signup-hide" : "signup-invalid"}
-        >
-          Les mots de passes ne correspondent pas
-        </span>
-        <button type="submit">Créer un compte</button>
-        <button type="button" onClick={handleCancel}>
+        {!validMatch && pass2 && (
+          <span className="signup-invalid">
+            Les mots de passe ne correspondent pas
+          </span>
+        )}
+        <button type="submit" className="add-user-btn">
+          Créer un compte
+        </button>
+        <button type="button" className="add-user-btn" onClick={handleCancel}>
           Annuler
         </button>
       </form>

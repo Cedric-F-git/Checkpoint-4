@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
 import useApi from "../../services/useApi";
 
@@ -13,9 +14,9 @@ function Logout() {
 
   return (
     <div className="logoutButton">
-      <button type="submit" onClick={handleLogout}>
+      <Link to="/" onClick={handleLogout}>
         Déconnexion
-      </button>
+      </Link>
     </div>
   );
 }
