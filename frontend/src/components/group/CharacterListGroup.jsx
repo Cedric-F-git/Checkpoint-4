@@ -9,6 +9,7 @@ function CharacterListGroup() {
   const [allCharacter, setAllCharacter] = useState([]);
   const [selectedCharacter, setSelectedCharacter] = useState({});
   const [groupCharacters, setGroupCharacters] = useState([]);
+  const [availableCharacters, setAvailableCharacters] = useState([]);
 
   useEffect(() => {
     api
@@ -20,6 +21,26 @@ function CharacterListGroup() {
         console.error(err);
       });
   }, []);
+
+  useEffect(() => {
+    if (state && state.selectedGroupId) {
+      const charactersInGroup = allCharacter.filter(
+        (character) => character.characterGroupId === state.selectedGroupId
+      );
+
+      setGroupCharacters(charactersInGroup);
+    }
+  }, [allCharacter, state.selectedGroupId]);
+
+  useEffect(() => {
+    const filteredAvailableCharacters = allCharacter.filter(
+      (character) =>
+        character.characterGroupId === null &&
+        !groupCharacters.find((c) => c.id === character.id)
+    );
+
+    setAvailableCharacters(filteredAvailableCharacters);
+  }, [allCharacter, groupCharacters]);
 
   const handleCharacterSelect = (event) => {
     const selectedCharacterId = event.target.value;
@@ -54,19 +75,27 @@ function CharacterListGroup() {
       .catch((err) => console.error(err));
   };
 
-  useEffect(() => {
-    if (state && state.selectedGroupId) {
-      const charactersInGroup = allCharacter.filter(
-        (character) => character.characterGroupId === state.selectedGroupId
-      );
+  const handleRemoveCharacterFromGroup = (characterId) => {
+    const characterToRemove = groupCharacters.find(
+      (character) => character.id === characterId
+    );
 
-      setGroupCharacters(charactersInGroup);
+    if (characterToRemove) {
+      api
+        .put(`/character/${characterId}`, {
+          ...characterToRemove,
+          characterGroupId: null,
+        })
+        .then(() => {
+          setGroupCharacters((prevGroupCharacters) =>
+            prevGroupCharacters.filter(
+              (character) => character.id !== characterId
+            )
+          );
+        })
+        .catch((err) => console.error(err));
     }
-  }, [allCharacter, state.selectedGroupId]);
-
-  const availableCharacters = allCharacter.filter(
-    (character) => character.characterGroupId === null
-  );
+  };
 
   return (
     <div>
@@ -84,13 +113,18 @@ function CharacterListGroup() {
 
       <div className="list-group-character">
         {groupCharacters.map((item) => (
-          <button
-            type="button"
-            className="list-group-character-btn"
-            key={item.id}
-          >
-            {item.name}
-          </button>
+          <div key={item.id}>
+            <button type="button" className="list-group-character-btn">
+              {item.name}
+            </button>
+            <button
+              type="button"
+              className="delete-character"
+              onClick={() => handleRemoveCharacterFromGroup(item.id)}
+            >
+              X
+            </button>
+          </div>
         ))}
       </div>
     </div>
