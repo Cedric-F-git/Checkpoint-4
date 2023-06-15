@@ -44,8 +44,10 @@ const validate = (data, forCreation = true) => {
 
 // eslint-disable-next-line consistent-return
 const browse = (req, res) => {
+  const userId = req.params.id;
+
   models.character
-    .findAll()
+    .findByUser(userId)
     .then(([rows]) => {
       res.send(rows);
     })
@@ -170,8 +172,9 @@ const add = (req, res) => {
   };
 
   const errors = validate(data);
-  if (errors) return res.sendStatus(422);
-  console.warn(errors);
+  if (errors) {
+    return res.status(422).json({ errors });
+  }
 
   models.character
     .insert(

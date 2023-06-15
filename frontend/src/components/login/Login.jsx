@@ -27,7 +27,6 @@ function Login({ handleLogin }) {
     api
       .post("/login", user)
       .then((resp) => {
-        console.warn(resp);
         const { token } = resp.data;
         api.defaults.headers.authorization = `Bearer ${token}`;
         setUser(resp.data.user);

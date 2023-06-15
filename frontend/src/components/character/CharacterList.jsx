@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useUser } from "../../contexts/UserContext";
 import useApi from "../../services/useApi";
 import AddCharacter from "./AddCharacter";
 
 function CharacterList() {
   const api = useApi();
+  const { user } = useUser();
 
   const [allCharacter, setAllCharacter] = useState([]);
   const [showAddCharacter, setShowAddCharacter] = useState(false);
 
   useEffect(() => {
     api
-      .get(`/character`)
+      .get(`/character/user/${user.id}`)
       .then((resp) => {
         setAllCharacter(resp.data);
       })

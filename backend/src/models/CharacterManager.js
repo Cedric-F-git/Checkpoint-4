@@ -5,6 +5,16 @@ class CharacterManager extends AbstractManager {
     super({ table: "`character`" });
   }
 
+  findByUser(id) {
+    return this.database.query(
+      `SELECT c.*, u.id AS userId FROM ${this.table} c
+      INNER JOIN user u
+      ON c.characterUserId = u.id
+      WHERE u.id = ?`,
+      [id]
+    );
+  }
+
   insert(
     name,
     classe,

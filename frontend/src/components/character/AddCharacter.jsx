@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useUser } from "../../contexts/UserContext";
 import useApi from "../../services/useApi";
 
 function AddCharacter({ handleCharacterAdded }) {
   const api = useApi();
+  const { user } = useUser();
 
   const [inventory, setInventory] = useState([]);
 
@@ -20,7 +22,6 @@ function AddCharacter({ handleCharacterAdded }) {
   const [weapon, setWeapon] = useState("");
   const [armor, setArmor] = useState("");
   const [story, setStory] = useState("");
-  const [characterUserId] = useState(1);
   const [inventoryId, setInventoryId] = useState("");
   const [characterGroupId] = useState(null);
 
@@ -51,7 +52,7 @@ function AddCharacter({ handleCharacterAdded }) {
       weapon,
       armor,
       story,
-      characterUserId,
+      characterUserId: user.id,
       inventoryId,
       characterGroupId,
     };
