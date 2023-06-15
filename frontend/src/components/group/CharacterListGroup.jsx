@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
 import useApi from "../../services/useApi";
+import CharacterInfosGroup from "./CharacterInfosGroup";
 
 function CharacterListGroup() {
   const api = useApi();
@@ -12,6 +13,7 @@ function CharacterListGroup() {
   const [selectedCharacter, setSelectedCharacter] = useState({});
   const [groupCharacters, setGroupCharacters] = useState([]);
   const [availableCharacters, setAvailableCharacters] = useState([]);
+  const [showCharacterInfos, setShowCharacterInfos] = useState(false);
 
   useEffect(() => {
     api
@@ -100,6 +102,11 @@ function CharacterListGroup() {
     }
   };
 
+  const handleShowCharacterInfos = (character) => {
+    setSelectedCharacter(character);
+    setShowCharacterInfos(true);
+  };
+
   return (
     <div>
       <select className="list-group" onChange={handleCharacterSelect}>
@@ -117,7 +124,11 @@ function CharacterListGroup() {
       <div className="list-group-character">
         {groupCharacters.map((item) => (
           <div key={item.id}>
-            <button type="button" className="list-group-character-btn">
+            <button
+              type="button"
+              className="list-group-character-btn"
+              onClick={() => handleShowCharacterInfos(item)}
+            >
               {item.name}
             </button>
             <button
@@ -130,6 +141,10 @@ function CharacterListGroup() {
           </div>
         ))}
       </div>
+
+      {showCharacterInfos && (
+        <CharacterInfosGroup selectedCharacter={selectedCharacter} />
+      )}
     </div>
   );
 }

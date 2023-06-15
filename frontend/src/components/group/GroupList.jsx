@@ -54,7 +54,7 @@ function GroupList() {
             <Link
               className="group-list-content__link"
               to={`/group/${item.id}`}
-              state={{ selectedGroupId: item.id }}
+              state={{ selectedGroupId: item.id, selectedName: item.name }}
             >
               <button type="button">{item.name}</button>
             </Link>
