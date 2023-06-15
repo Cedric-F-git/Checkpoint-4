@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useUser } from "../../contexts/UserContext";
 import useApi from "../../services/useApi";
 
 function CharacterListGroup() {
   const api = useApi();
+  const { user } = useUser();
   const { state } = useLocation();
 
   const [allCharacter, setAllCharacter] = useState([]);
@@ -36,7 +38,8 @@ function CharacterListGroup() {
     const filteredAvailableCharacters = allCharacter.filter(
       (character) =>
         character.characterGroupId === null &&
-        !groupCharacters.find((c) => c.id === character.id)
+        !groupCharacters.find((c) => c.id === character.id) &&
+        character.characterUserId === user.id
     );
 
     setAvailableCharacters(filteredAvailableCharacters);
