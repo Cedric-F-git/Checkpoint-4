@@ -1,0 +1,63 @@
+.loginFormContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #130903d7;
+  border: #0f0600 3px solid;
+  color: var(--color);
+  border-radius: 2%;
+  height: auto;
+  width: auto;
+  align-content: center;
+  padding-bottom: 15px;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.loginTitle {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  margin-top: 15px;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.loginLabel {
+  margin-top: -20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+
+.inputLoginForm {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid #ccc;
+}
+
+.add-user-btn {
+  height: 38px;
+  width: 80%;
+  margin: 7px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+}
+
+// .inputLoginForm {
+//   margin-left: 15px;
+// }
+
+@media screen and (min-width: 1024px) {
+  .add-user-btn:hover {
+    cursor: pointer;
+  }
+}

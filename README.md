@@ -3,6 +3,9 @@
 This template is meant to serve as a foundation for every P2/P3 following the React-Express-MySQL stack, as learned in Wild Code School.
 It's pre-configured with a set of tools which'll help students produce industry-quality and easier-to-maintain code, while staying as simple as possible to use.
 
+This project was carried out as part of my training for checkpoint 4.
+This is a site for creating characters and adding them to a group. It is intended for rpg. You can update your characters. One can use this site to keep track of his rpg characters.
+
 ## Setup & Use
 
 ### Project Initialization
@@ -11,6 +14,7 @@ It's pre-configured with a set of tools which'll help students produce industry-
 - Clone this repo, enter it
 - If you are using `yarn` or `pnpm`, adapt the `config/cli` in `package.json`
 - Run command `npm install`
+- Run command `npm i sass`
 - _NB: To launch the backend server, you'll need an environment file with database credentials. You'll find a template one in `backend/.env.sample`_
 
 ### Available Commands

@@ -1,0 +1,158 @@
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useUser } from "../../contexts/UserContext";
+import useApi from "../../services/useApi";
+import CharacterInfosGroup from "./CharacterInfosGroup";
+
+function CharacterListGroup() {
+  const api = useApi();
+  const { user } = useUser();
+  const { state } = useLocation();
+
+  const [allCharacter, setAllCharacter] = useState([]);
+  const [selectedCharacter, setSelectedCharacter] = useState({});
+  const [groupCharacters, setGroupCharacters] = useState([]);
+  const [availableCharacters, setAvailableCharacters] = useState([]);
+  const [showCharacterInfos, setShowCharacterInfos] = useState(false);
+
+  useEffect(() => {
+    api
+      .get(`/character`)
+      .then((resp) => {
+        setAllCharacter(resp.data.sort((a, b) => a.name.localeCompare(b.name)));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (state && state.selectedGroupId) {
+      const charactersInGroup = allCharacter.filter(
+        (character) => character.characterGroupId === state.selectedGroupId
+      );
+
+      setGroupCharacters(charactersInGroup);
+    }
+  }, [allCharacter, state.selectedGroupId]);
+
+  useEffect(() => {
+    const filteredAvailableCharacters = allCharacter.filter(
+      (character) =>
+        character.characterGroupId === null &&
+        !groupCharacters.find((c) => c.id === character.id) &&
+        character.characterUserId === user.id
+    );
+
+    setAvailableCharacters(filteredAvailableCharacters);
+  }, [allCharacter, groupCharacters]);
+
+  const handleCharacterSelect = (event) => {
+    const selectedCharacterId = event.target.value;
+    const character = allCharacter.find(
+      // eslint-disable-next-line
+      (item) => item.id == selectedCharacterId
+    );
+    setSelectedCharacter(character);
+  };
+
+  const handleAddCharacterInGroup = (e) => {
+    e.preventDefault();
+
+    const { userId, ...updatedCharacter } = selectedCharacter;
+    const updateCharacterGroupId = state.selectedGroupId;
+    const updatedGroupCharacters = [...groupCharacters, selectedCharacter];
+
+    updatedGroupCharacters.sort((a, b) => a.name.localeCompare(b.name));
+
+    api
+      .put(`/character/${updatedCharacter.id}`, {
+        ...updatedCharacter,
+        characterGroupId: updateCharacterGroupId,
+      })
+      .then(() => {
+        setSelectedCharacter((prevCharacter) => ({
+          ...prevCharacter,
+          characterGroupId: updateCharacterGroupId,
+        }));
+        setGroupCharacters(updatedGroupCharacters);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const handleRemoveCharacterFromGroup = (characterId) => {
+    const characterToRemove = groupCharacters.find(
+      (character) => character.id === characterId
+    );
+
+    if (characterToRemove) {
+      api
+        .put(`/character/${characterId}`, {
+          ...characterToRemove,
+          characterGroupId: null,
+        })
+        .then(() => {
+          setGroupCharacters((prevGroupCharacters) =>
+            prevGroupCharacters.filter(
+              (character) => character.id !== characterId
+            )
+          );
+        })
+        .catch((err) => console.error(err));
+    }
+  };
+
+  const handleShowCharacterInfos = (character) => {
+    setSelectedCharacter(character);
+    setShowCharacterInfos(true);
+  };
+
+  return (
+    <section className="group-section-container">
+      <div className="div-group-list">
+        <select className="list-group" onChange={handleCharacterSelect}>
+          <option value="">Choisir un personnage</option>
+          {availableCharacters.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option.name}
+            </option>
+          ))}
+        </select>
+        <button
+          type="button"
+          className="btn-item-name"
+          onClick={handleAddCharacterInGroup}
+        >
+          Ajouter
+        </button>
+
+        <div className="list-group-character">
+          {groupCharacters.map((item) => (
+            <div key={item.id}>
+              <button
+                type="button"
+                className="btn-item-name-group"
+                onClick={() => handleShowCharacterInfos(item)}
+              >
+                {item.name}
+              </button>
+              <button
+                type="button"
+                className="delete-btn"
+                onClick={() => handleRemoveCharacterFromGroup(item.id)}
+              >
+                X
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {showCharacterInfos && (
+        <CharacterInfosGroup selectedCharacter={selectedCharacter} />
+      )}
+    </section>
+  );
+}
+
+export default CharacterListGroup;
