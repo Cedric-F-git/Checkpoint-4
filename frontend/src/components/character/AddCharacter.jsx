@@ -22,7 +22,7 @@ function AddCharacter({ handleCharacterAdded }) {
   const [story, setStory] = useState("");
   const [characterUserId] = useState(1);
   const [inventoryId, setInventoryId] = useState("");
-  const [characterGroupId] = useState(1);
+  const [characterGroupId] = useState(null);
 
   useEffect(() => {
     api

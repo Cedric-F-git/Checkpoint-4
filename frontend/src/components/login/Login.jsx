@@ -1,8 +1,9 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useUser } from "../../contexts/UserContext";
 import useApi from "../../services/useApi";
+import AddUser from "./AddUser";
 import backgroundImage from "../../assets/picConnexion.jpg";
 
 function Login({ handleLogin }) {
@@ -11,6 +12,8 @@ function Login({ handleLogin }) {
   const navigate = useNavigate();
   const refEmail = useRef();
   const refPass = useRef();
+
+  const [showCreateAccount, setShowCreateAccount] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,6 +55,11 @@ function Login({ handleLogin }) {
         alert(errorMsg);
       });
   };
+
+  const handleShowCreateAccount = () => {
+    setShowCreateAccount(!showCreateAccount);
+  };
+
   const containerStyle = {
     backgroundImage: `url(${backgroundImage})`,
     backgroundRepeat: "no-repeat",
@@ -69,18 +77,34 @@ function Login({ handleLogin }) {
     <div style={containerStyle}>
       <div className="loginFormContainer">
         <p className="loginTitle">Connexion</p>
-        <form onSubmit={handleSubmit} className="loginForm">
-          <label htmlFor="login" className="loginLabel">
-            Email :
-            <input type="text" className="inputLoginForm" ref={refEmail} />
-          </label>
-          <label htmlFor="password" className="loginLabel">
-            Mot de passe :
-            <input type="password" className="inputLoginForm" ref={refPass} />
-          </label>
-
-          <button type="submit">Connexion</button>
-        </form>
+        {showCreateAccount ? (
+          <AddUser
+            refEmail={refEmail}
+            refPass={refPass}
+            setShowCreateAccount={setShowCreateAccount}
+          />
+        ) : (
+          <form onSubmit={handleSubmit} className="loginForm">
+            <label htmlFor="login" className="loginLabel">
+              Email:
+              <input type="text" className="inputLoginForm" ref={refEmail} />
+            </label>
+            <label htmlFor="password" className="loginLabel">
+              Mot de passe:
+              <input type="password" className="inputLoginForm" ref={refPass} />
+            </label>
+            <button type="submit">Connexion</button>
+          </form>
+        )}
+        {!showCreateAccount && (
+          <button
+            type="button"
+            className="add-user-btn"
+            onClick={handleShowCreateAccount}
+          >
+            Créer un compte
+          </button>
+        )}
       </div>
     </div>
   );
