@@ -57,6 +57,18 @@ const browse = (req, res) => {
     });
 };
 
+const findAllCharacter = (req, res) => {
+  models.character
+    .findAll()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.character
     .find(req.params.id)
@@ -228,6 +240,7 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
+  findAllCharacter,
   read,
   edit,
   add,

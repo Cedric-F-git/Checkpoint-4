@@ -15,7 +15,7 @@ function CharacterList() {
     api
       .get(`/character/user/${user.id}`)
       .then((resp) => {
-        setAllCharacter(resp.data);
+        setAllCharacter(resp.data.sort((a, b) => a.name.localeCompare(b.name)));
       })
       .catch((err) => {
         console.warn(err);

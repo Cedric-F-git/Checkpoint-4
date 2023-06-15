@@ -17,6 +17,7 @@ router.post("/login", userControllers.findByEmailToNext, verifyPassword);
 router.delete("/user/:id", userControllers.destroy);
 
 router.get("/character/user/:id", characterControllers.browse);
+router.get("/character", characterControllers.findAllCharacter);
 router.get("/character/:id", characterControllers.read);
 router.put("/character/:id", characterControllers.edit);
 router.post("/character", characterControllers.add);
