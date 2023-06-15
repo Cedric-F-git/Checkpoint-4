@@ -86,6 +86,7 @@ class CharacterManager extends AbstractManager {
     weapon,
     armor,
     story,
+    characterGroupId,
     inventoryId
   ) {
     return this.database.query(
@@ -103,6 +104,7 @@ class CharacterManager extends AbstractManager {
       weapon = ?,
       armor = ?,
       story = ?,
+      characterGroupId = ?,
       inventoryId = ?
       WHERE id = ?`,
       [
@@ -119,6 +121,7 @@ class CharacterManager extends AbstractManager {
         weapon,
         armor,
         story,
+        characterGroupId,
         inventoryId,
         id,
       ]

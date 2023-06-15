@@ -97,6 +97,7 @@ const edit = async (req, res) => {
     weapon,
     armor,
     story,
+    characterGroupId,
     inventoryId,
   } = req.body;
 
@@ -116,6 +117,7 @@ const edit = async (req, res) => {
       weapon,
       armor,
       story,
+      characterGroupId,
       inventoryId
     )
     .then(([result]) => {

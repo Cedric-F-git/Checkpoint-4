@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useUser } from "../../contexts/UserContext";
 import useApi from "../../services/useApi";
 
 function CharacterListGroup() {
   const api = useApi();
+  const { user } = useUser();
   const { state } = useLocation();
 
   const [allCharacter, setAllCharacter] = useState([]);
-  const [selectedCharacter] = useState({});
+  const [selectedCharacter, setSelectedCharacter] = useState({});
 
   useEffect(() => {
     api
-      .get("/character")
+      .get(`/character/user/${user.id}`)
       .then((resp) => {
         setAllCharacter(resp.data);
       })
@@ -20,30 +22,38 @@ function CharacterListGroup() {
       });
   }, []);
 
-  // const handleCharacterSelect = (event) => {
-  //   const selectedCharacterId = event.target.value;
-  //   const character = allCharacter.find((c) => c.id == selectedCharacterId);
-  //   setSelectedCharacter(character);
-  // };
+  const handleCharacterSelect = (event) => {
+    const selectedCharacterId = event.target.value;
+    const character = allCharacter.find(
+      // eslint-disable-next-line
+      (item) => item.id == selectedCharacterId
+    );
+    setSelectedCharacter(character);
+  };
 
   const handleAddCharacterInGroup = (e) => {
     e.preventDefault();
 
-    const updateCharacterGroupId = {
-      ...selectedCharacter,
-      characterGroupId: state.selectedGroupId,
-    };
+    const { userId, ...updatedCharacter } = selectedCharacter;
+    const updateCharacterGroupId = state.selectedGroupId;
 
     api
-      .put(`/character/${selectedCharacter.id}`, updateCharacterGroupId)
-      .then()
+      .put(`/character/${updatedCharacter.id}`, {
+        ...updatedCharacter,
+        characterGroupId: updateCharacterGroupId,
+      })
+      .then(() => {
+        setSelectedCharacter((prevCharacter) => ({
+          ...prevCharacter,
+          characterGroupId: updateCharacterGroupId,
+        }));
+      })
       .catch((err) => console.error(err));
   };
-  // console.log(selectedCharacter);
 
   return (
     <div>
-      <select className="species">
+      <select className="species" onChange={handleCharacterSelect}>
         <option value="">--Choisir un personnage--</option>
         {allCharacter.map((option) => (
           <option key={option.id} value={option.id}>
